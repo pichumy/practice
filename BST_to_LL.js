@@ -29,6 +29,38 @@ const BST_to_LL = (tree) => {
     })
     return linkedList;
 }
+// this isn't necessarily faster in terms of time complexity, but it is O(N) space complexity
+const efficient_BST_to_LL = (head) => {
+  let last_node = efficient_dfs(head);
+  let lowest_node = find_lowest(head);
+  last_node.next = lowest_node;
+  lowest_node.prev = last_node;
+  return lowest_node;
+}
+
+const find_lowest = (node) => {
+  if(node.left === undefined){
+    return node;
+  }
+  return find_lowest(node.left);
+}
+
+const efficient_dfs = (node) => {
+  if(node.left === undefined && node.right === undefined){
+    return node;
+  }else if(node.left === undefined){
+    return efficient_dfs(node.right);
+  }else if(node.right === undefined){
+    return efficient_dfs(node.left);
+  }
+  left = efficient_dfs(node.left);
+  right = efficient_dfs(node.right);
+  left.next = node;
+  node.prev = left;
+  node.next = right;
+  right.prev = node;
+  return right;
+}
 
 class Node {
   constructor(val){
@@ -45,7 +77,6 @@ const dfs = (node) => {
   }else if(node.left === undefined){
     return dfs(node.right)
   }else if(node.right === undefined){
-    // i dont think this should happen
     return dfs(node.left)
   }
   left = dfs(node.left)
@@ -70,9 +101,10 @@ let node4 = new TreeNode(4);
 node1.left = node3;
 node1.right = node4;
 
-let linkedList = BST_to_LL(root);
-linkedList.forEach(node => {
-  console.log("This node: ", node.val);
-  console.log("next: ", node.next);
-  console.log("prev: ", node.prev);
-});
+let node = efficient_BST_to_LL(root);
+console.log(node);
+// linkedList.forEach(node => {
+//   console.log("This node: ", node.val);
+//   console.log("next: ", node.next);
+//   console.log("prev: ", node.prev);
+// });
