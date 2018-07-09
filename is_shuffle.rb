@@ -1,4 +1,4 @@
-# naive solution that doesn't work for certain inputs, like below 
+# naive solution that doesn't work for certain inputs, like below
 def is_shuffle?(main, arr1, arr2)
   temp = ""
   temp1 = ""
