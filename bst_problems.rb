@@ -57,7 +57,7 @@ def left_most(node)
     node
   end
 end
-# helper method for next_largest 
+# helper method for next_largest
 def greater_parent(parent, value)
   if parent.value > value
     return parent
@@ -68,6 +68,28 @@ def greater_parent(parent, value)
       greater_parent(parent.parent, value)
     end
   end
+end
+
+def is_bst?(tree_node)
+  pivot = tree_node.value
+  check_left_pivot(tree_node.left, pivot)
+  check_right_pivot(tree_node.right, pivot)
+end
+
+def check_left_pivot(tree_node, pivot)
+  if tree_node.value > pivot
+    return false
+  end
+  if tree_node.left
+    return check_left_pivot(tree_node.left, pivot)
+  end
+  if tree_node.right
+    return check_right_pivot(tree_node.right, pivot)
+  end
+  true
+end
+
+def check_right_pivot(tree_node, pivot)
 end
 
 # create a BST
