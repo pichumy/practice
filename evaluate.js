@@ -2,6 +2,8 @@
 // Parse the string and conduct the expression with order of operations
 // EXAMPLE: "3+6/4*7^2"
 // Currently does not deal well with negative numbers... bleh
+// This is kind of bad. Redo with dijkstra's two stack alg... need to figure out how to handle negative numbers and precedence.
+
 
 const evaluate = (input) => {
   let string = input.repeat(1);
