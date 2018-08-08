@@ -70,7 +70,11 @@ export default class WordFinder {
           // do nothing. String used here due to how JS handles negative literals.
           "-1": () => {  }
         }
-        options[this.tree.checkWord(first_letter)](vectors, i, j);
+        let action = options[this.tree.checkWord(first_letter)] || function(){
+          // do nothing
+        };
+        action(vectors, i, j);
+
 
         return vectors;
     }
@@ -116,7 +120,8 @@ export default class WordFinder {
         i = i + directionX;
         j = j + directionY;
         word = word + this.grid[i][j];
-        options[this.tree.checkWord(word)](word, i, j);
+        let action = options[this.tree.checkWord(word)] || function(){ };
+        action(word, i, j);
       }
       return foundWords;
     }
